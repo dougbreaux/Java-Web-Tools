@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <html>
 <head>
     <title>Servlet Container Class Finder</title>
@@ -17,42 +19,35 @@ Class.forName(className).getProtectionDomain().getCodeSource()
 <%
     String className = request.getParameter("className");
     String prefill = "";
-    if (className != null)
-    {
+    if (className != null) {
         prefill = className;
-        if (className.trim().length() != 0)
-        {
-            try
-            {
+        request.setAttribute("prefill", prefill);
+        if (className.trim().length() != 0) {
+            try {
                 java.security.ProtectionDomain pd = Class.forName(className).getProtectionDomain();
-                if (pd != null)
-                {
+                if (pd != null) {
                     java.security.CodeSource cs = pd.getCodeSource();
-                    if (cs != null)
-                    {
+                    if (cs != null) {
                         out.println(cs);
                     }
-                    else
-                    {
+                    else {
                         out.println("No CodeSource found");
                     }
                 }
-                else
-                {
+                else {
                     out.println("No ProtectionDomain found");
                 }
             }
-            catch (Throwable t)
-            {
+            catch (Throwable t) {
                 out.println(t);
             }
         }
     }
 %>
 </p>
-<form method="post" action="<%= request.getRequestURI()%>">
+<form method="post" action="<c:out value="${pageContext.request.requestURI}"/>">
     <p>
-    Class Name: <input type="text" name="className" value="<%= prefill %>" size="40"/>
+    Class Name: <input type="text" name="className" value="<c:out value="${prefill}"/>" size="40"/>
     <input type="submit" value="Submit"/>
     </p>
 </form>
