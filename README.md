@@ -4,3 +4,11 @@ Miscellaneous general-purpose Java EE web-related testing files. JSPs at this po
 * [Finding a Java Class in your Servlet Container](https://dougbreaux.github.io/2010/07/29/finding-a-java-class-in-your-servlet-container.html)
 * [View HTTP Request Headers](https://dougbreaux.github.io/2010/07/29/view-http-request-headers.html)
 * [JNDI Lookup Tester](https://dougbreaux.github.io/2011/05/24/jndi-lookup-tester.html)
+
+## TestHttp class
+
+Mostly created for testing https certificate trust.
+
+```console
+java -Djavax.net.ssl.trustStore=/config/trust.jks -Djavax.net.ssl.keyStorePassword=$TRUST_PASSWORD TestHttp https://example.com
+```
